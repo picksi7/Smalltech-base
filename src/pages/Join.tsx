@@ -1,6 +1,8 @@
 import { Github, GitPullRequest, MessageCircle, Mic, Eye, Sparkles, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import SectionHeading from "@/components/site/SectionHeading";
+import Seo from "@/components/site/Seo";
+import { OrganizationLd, BreadcrumbLd } from "@/components/site/JsonLd";
 
 const roles = [
   {
@@ -41,6 +43,15 @@ const contribSteps = [
 const Join = () => {
   return (
     <div className="anim-fade">
+      <Seo
+        title="Присоединиться к сообществу Смоллтех"
+        description="Как стать частью сообщества малых и средних ИТ-компаний. Открыто для инженеров, деврелов и менеджеров технобренда."
+        path="/join"
+        type="website"
+        keywords="смоллтех, smalltech, присоединиться, ИТ-сообщество, деврел, инженерное сообщество"
+      />
+      <OrganizationLd />
+      <BreadcrumbLd items={[{ name: 'Присоединиться', path: '/join' }]} />
       {/* HEAD */}
       <header className="relative overflow-hidden border-b border-border/60">
         <div className="absolute inset-0 grid-pattern opacity-50" aria-hidden />
@@ -99,8 +110,7 @@ const Join = () => {
               </p>
               <a
                 href="https://github.com/picksi7/Smalltech"
-                target="_blank"
-                rel="noreferrer"
+                target="_blank" rel="noopener noreferrer"
                 className="mt-7 inline-flex h-12 items-center gap-2 rounded-full bg-gradient-amber px-6 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:scale-[1.02]"
                 onClick={() => window.ym?.(108988295, 'reachGoal', 'click_github_repo_join')}
               >
@@ -188,8 +198,7 @@ const Join = () => {
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <a
                 href="https://github.com/picksi7/Smalltech"
-                target="_blank"
-                rel="noreferrer"
+                target="_blank" rel="noopener noreferrer"
                 className="inline-flex h-12 items-center gap-2 rounded-full bg-gradient-amber px-6 text-sm font-medium text-primary-foreground shadow-glow"
                 onClick={() => window.ym?.(108988295, 'reachGoal', 'click_github_cta_join')}
               >

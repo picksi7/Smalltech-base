@@ -12,6 +12,8 @@ import {
   Wrench,
 } from "lucide-react";
 import SectionHeading from "@/components/site/SectionHeading";
+import Seo from "@/components/site/Seo";
+import { OrganizationLd, BreadcrumbLd } from "@/components/site/JsonLd";
 
 const smalltechTalks = [
   {
@@ -80,6 +82,15 @@ const smalltechTalks = [
 const Partnership = () => {
   return (
     <div className="anim-fade">
+      <Seo
+        title="Партнёрство со Смоллтех — для ИТ-компаний и организаторов"
+        description="Форматы сотрудничества с сообществом Смоллтех. Партнёрство с Онтико, организатором HighLoad++ и других ведущих ИТ-конференций."
+        path="/partnership"
+        type="website"
+        keywords="смоллтех, smalltech, партнёрство, Онтико, HighLoad++, ИТ-конференции"
+      />
+      <OrganizationLd />
+      <BreadcrumbLd items={[{ name: 'Партнёрство', path: '/partnership' }]} />
       <header className="relative overflow-hidden border-b border-border/60">
         <div className="absolute inset-0 grid-pattern opacity-40" aria-hidden />
         <div className="absolute inset-0 -z-10" style={{ background: "var(--gradient-hero)" }} aria-hidden />
@@ -186,8 +197,7 @@ const Partnership = () => {
         <div className="mt-12 grid gap-5">
           <a
             href="https://highload.ru/spb/2026"
-            target="_blank"
-            rel="noreferrer"
+            target="_blank" rel="noopener noreferrer"
             className="surface-card group relative overflow-hidden rounded-3xl p-7 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-elevated sm:p-8"
           >
             <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-primary">
@@ -396,8 +406,7 @@ const Partnership = () => {
             <div className="flex md:justify-end">
               <a
                 href="https://t.me/LisaTsareva"
-                target="_blank"
-                rel="noreferrer"
+                target="_blank" rel="noopener noreferrer"
                 className="inline-flex h-12 items-center gap-2 rounded-full bg-gradient-amber px-6 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:scale-[1.02]"
                 onClick={() => window.ym?.(108988295, 'reachGoal', 'click_contact_lisa')}
               >
