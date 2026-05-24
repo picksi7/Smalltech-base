@@ -57,12 +57,15 @@ const SiteHeader = () => {
           >
             <Github className="h-4 w-4" />
           </a>
-          <Link
-            to="/join"
+          <a
+            href="https://t.me/small_tech"
+            target="_blank"
+            rel="noreferrer"
             className="inline-flex h-9 items-center rounded-full bg-gradient-amber px-4 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:scale-[1.02]"
+            onClick={() => window.ym?.(108988295, 'reachGoal', 'click_header_join_telegram')}
           >
             Присоединиться
-          </Link>
+          </a>
         </div>
 
         <button
@@ -95,13 +98,18 @@ const SiteHeader = () => {
                 {item.label}
               </RouterNavLink>
             ))}
-            <Link
-              to="/join"
-              onClick={() => setOpen(false)}
+            <a
+              href="https://t.me/small_tech"
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => {
+                setOpen(false);
+                window.ym?.(108988295, 'reachGoal', 'click_header_join_telegram');
+              }}
               className="mt-2 inline-flex h-11 items-center justify-center rounded-full bg-gradient-amber text-sm font-medium text-primary-foreground"
             >
               Присоединиться
-            </Link>
+            </a>
           </nav>
         </div>
       )}

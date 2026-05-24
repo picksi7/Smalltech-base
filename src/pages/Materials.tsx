@@ -399,14 +399,6 @@ const Materials = () => {
             title={<>Vol.3 — уже в&nbsp;работе</>}
             description="Запись и презентации появятся здесь сразу после мероприятия. Если хотите выступить или предложить тему — напишите нам."
           />
-          <a
-            href="https://conf.ontico.ru/lectures/submit/external-xxexk7892X"
-            target="_blank"
-            rel="noreferrer"
-            className="mt-8 inline-flex h-11 items-center rounded-full bg-gradient-amber px-6 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:scale-[1.02]"
-          >
-            Предложить доклад
-          </a>
         </div>
       </section>
     </div>

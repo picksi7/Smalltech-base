@@ -133,23 +133,39 @@ const Community = () => {
       {/* EVENTS */}
       <section className="container-wide pb-20">
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="surface-card rounded-3xl p-7 sm:p-8">
+          <Link
+            to="/materials"
+            className="surface-card group rounded-3xl p-7 transition-transform hover:-translate-y-1 hover:border-primary/50 sm:p-8"
+            aria-label="Открыть раздел материалов"
+          >
             <Calendar className="h-5 w-5 text-primary" />
-            <h3 className="mt-3 font-display text-xl font-semibold">Мероприятия</h3>
+            <h3 className="mt-3 font-display text-xl font-semibold transition-colors group-hover:text-primary">Мероприятия</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               За год — два офлайн-митапа сборной солянкой: разнобрендовый мерч, спикеры из разных
               компаний, общие темы. Следующие события уже в работе. Если хотите принять у себя
               митап или выступить — напишите.
             </p>
-          </div>
-          <div className="surface-card rounded-3xl p-7 sm:p-8">
+            <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary">
+              Смотреть материалы <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+          </Link>
+          <a
+            href="https://t.me/small_tech"
+            target="_blank"
+            rel="noreferrer"
+            className="surface-card group rounded-3xl p-7 transition-transform hover:-translate-y-1 hover:border-primary/50 sm:p-8"
+            aria-label="Открыть Telegram-канал Smalltech"
+          >
             <Users className="h-5 w-5 text-primary" />
-            <h3 className="mt-3 font-display text-xl font-semibold">Ядро активистов</h3>
+            <h3 className="mt-3 font-display text-xl font-semibold transition-colors group-hover:text-primary">Ядро активистов</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               30+ компаний в ближайшем пулле соратников. Деврелы, менеджеры технобренда, инженеры,
               CTO. Мы остаёмся открытыми — если ваш контекст похож, добро пожаловать.
             </p>
-          </div>
+            <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary">
+              Перейти в Telegram <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+          </a>
         </div>
       </section>
 

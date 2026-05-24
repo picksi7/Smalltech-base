@@ -152,19 +152,24 @@ const Join = () => {
               <h3 className="font-display text-lg font-semibold">{c.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.text}</p>
               {c.links && (
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {c.links.map((l) => (
-                    <a
-                      key={l.href}
-                      href={l.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary/40 px-3 py-1 text-xs font-medium text-foreground/90 transition-colors hover:bg-secondary"
-                      onClick={() => window.ym?.(108988295, 'reachGoal', `click_social_${l.label.toLowerCase()}`)}
-                    >
-                      {l.label}
-                    </a>
-                  ))}
+                <div className="mt-5 rounded-2xl border border-primary/35 bg-primary/10 p-3 shadow-glow">
+                  <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.2em] text-primary">
+                    Написать нам
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {c.links.map((l) => (
+                      <a
+                        key={l.href}
+                        href={l.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex h-10 items-center gap-1.5 rounded-full border border-primary/40 bg-background/80 px-4 text-sm font-medium text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
+                        onClick={() => window.ym?.(108988295, 'reachGoal', `click_social_${l.label.toLowerCase()}`)}
+                      >
+                        {l.label}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

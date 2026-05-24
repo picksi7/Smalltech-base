@@ -87,16 +87,6 @@ const Partnership = () => {
                   <p className="mt-2 font-display text-2xl font-semibold">13 мая</p>
                 </div>
               </div>
-
-              <a
-                href="https://conf.ontico.ru/lectures/submit/external-xxexk7892X"
-                target="_blank"
-                rel="noreferrer"
-                className="mt-8 inline-flex h-12 items-center gap-2 rounded-full bg-gradient-amber px-6 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:scale-[1.02]"
-                onClick={() => window.ym?.(108988295, 'reachGoal', 'click_submit_speaker')}
-              >
-                Подать заявку <ArrowRight className="h-4 w-4" />
-              </a>
             </div>
           </div>
 
