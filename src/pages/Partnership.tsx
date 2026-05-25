@@ -2,6 +2,7 @@ import {
   ArrowRight,
   BarChart3,
   Calendar,
+  ExternalLink,
   Handshake,
   MapPin,
   Megaphone,
@@ -11,6 +12,70 @@ import {
   Wrench,
 } from "lucide-react";
 import SectionHeading from "@/components/site/SectionHeading";
+
+const smalltechTalks = [
+  {
+    time: "22 июня, 10:00–12:00",
+    room: "Зал Розовый",
+    title:
+      "Мастер-класс «Детские болезни доменных платформ в BigTech: архитектурные ошибки, которые дорого чинить»",
+    speaker: "Екатерина Лысенко",
+    company: "Независимый эксперт",
+    url: "https://highload.ru/spb/2026/abstracts/17514",
+    summary:
+      "Разбор повторяющихся архитектурных ошибок в доменных платформах: как решения «пока так» становятся дорогими при росте.",
+  },
+  {
+    time: "22 июня, 13:30–14:20",
+    room: "Зал Синий",
+    title: "Опыт перехода от MaaS к self-hosted/on-premise моделям: проблемы, боли, решения",
+    speaker: "Сергей Нотевский",
+    company: "Битрикс24",
+    url: "https://highload.ru/spb/2026/abstracts/17479",
+    summary:
+      "Практический опыт переезда AI-сценариев с вендорских моделей на локальные LLM, STT и эмбеддинги с инженерными компромиссами.",
+  },
+  {
+    time: "22 июня, 15:50–16:40",
+    room: "Зал Синий",
+    title: "Безопасность AI-агентов: векторы угроз и механизмы защиты",
+    speaker: "Юрьева Радда",
+    company: "Positive Technologies",
+    url: "https://highload.ru/spb/2026/abstracts/16914",
+    summary:
+      "Типовые атаки на AI-агентов и шаблоны защиты: от prompt-injection до guardrails и аудита собственных LLM-решений.",
+  },
+  {
+    time: "22 июня, 17:00–17:50",
+    room: "Зал Синий",
+    title: "Как колоночное хранилище может помочь legacy?",
+    speaker: "Михаил Шишкин",
+    company: "ООО Газинформсервис",
+    url: "https://highload.ru/spb/2026/abstracts/17966",
+    summary:
+      "Кейс оживления нагруженного legacy-проекта через применение преимуществ колоночного хранилища к проблемному паттерну временных таблиц.",
+  },
+  {
+    time: "22 июня, 18:10–19:00",
+    room: "Зал Синий",
+    title: "Почему вам (скорее всего) не нужен локальный LLM-инференс",
+    speaker: "Егор Андреев",
+    company: "Admindivision / Впрод",
+    url: "https://highload.ru/spb/2026/abstracts/18318",
+    summary:
+      "TCO локального LLM-инференса для малых и средних компаний: когда GPU не окупается и какие альтернативы рассмотреть.",
+  },
+  {
+    time: "23 июня, 12:20–13:10",
+    room: "Зал Башня",
+    title: "FinOps: Anomaly Management как версия Incident Management",
+    speaker: "Максим Бурцев",
+    company: "Купер.тех",
+    url: "https://highload.ru/spb/2026/abstracts/18032",
+    summary:
+      "Как переиспользовать зрелые процессы incident/problem management для управления финансовыми аномалиями и расходами на облака.",
+  },
+];
 
 const Partnership = () => {
   return (
@@ -114,11 +179,11 @@ const Partnership = () => {
       <section id="partnership_ontico" className="container-wide py-12 sm:py-20">
         <SectionHeading
           eyebrow="02 · эксклюзивное партнёрство"
-          title="Смоллтех аллея на Saint HighLoad++ и Saint TeamLead"
-          description="Онтико заключил с сообществом эксклюзивное партнёрство: Смоллтех получает возможность громко заявить о себе на крупнейших профильных конференциях Петербурга."
+          title="Смоллтех аллея на Saint HighLoad++"
+          description="Онтико заключил с сообществом эксклюзивное партнёрство: Смоллтех получает возможность громко заявить о себе на крупнейшей профильной конференции Петербурга."
         />
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
+        <div className="mt-12 grid gap-5">
           <a
             href="https://highload.ru/spb/2026"
             target="_blank"
@@ -138,29 +203,6 @@ const Partnership = () => {
             </p>
             <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary">
               highload.ru/spb/2026
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </div>
-          </a>
-
-          <a
-            href="https://teamleadconf.ru/spb/2026"
-            target="_blank"
-            rel="noreferrer"
-            className="surface-card group relative overflow-hidden rounded-3xl p-7 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-elevated sm:p-8"
-          >
-            <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-primary">
-              <MapPin className="h-3.5 w-3.5" /> Санкт-Петербург
-            </div>
-            <h3 className="mt-4 font-display text-2xl font-semibold sm:text-3xl">
-              Saint TeamLead 2026
-            </h3>
-            <p className="mt-2 font-mono-tech text-sm text-muted-foreground">25–26 июня 2026</p>
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Главная конференция для тимлидов, инженерных менеджеров и технических директоров.
-              Большая площадка — большой охват для смоллтеха.
-            </p>
-            <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary">
-              teamleadconf.ru/spb/2026
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </div>
           </a>
@@ -211,11 +253,70 @@ const Partnership = () => {
                 «когда у нас будет отдельная платформенная команда».
               </p>
               <p>
-                Программу собирает само сообщество — спикеры, темы и форматы определяются
-                компаниями-партнёрами аллеи и активистами Смоллтеха.
+                Программа трека уже опубликована на сайте конференции. Это срежиссированный маршрут
+                по архитектуре, AI-инфраструктуре, безопасности, legacy, FinOps и инженерной экономике —
+                тем вопросам, которые особенно болезненны для малых и средних технологических компаний.
               </p>
+              <a
+                href="https://highload.ru/spb/2026/streams/smalltech"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+              >
+                Смотреть страницу стрима на HighLoad
+                <ExternalLink className="h-4 w-4" />
+              </a>
             </div>
           </div>
+
+          <details className="group mt-8 rounded-3xl border border-border bg-secondary/30 p-6 open:bg-secondary/45 sm:p-7">
+            <summary className="flex cursor-pointer list-none flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="font-mono-tech text-xs uppercase tracking-[0.2em] text-primary">
+                  6 докладов · 22–23 июня
+                </p>
+                <h4 className="mt-2 font-display text-xl font-semibold">
+                  Что вошло в SmallTech-трек Saint HighLoad++ 2026
+                </h4>
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                  Список свернут, чтобы не раздувать страницу. Раскройте блок, если хотите быстро
+                  пройтись по программе и перейти к первоисточникам.
+                </p>
+              </div>
+              <span className="inline-flex h-11 items-center justify-center rounded-full bg-primary/10 px-5 text-sm font-medium text-primary transition-colors group-open:bg-primary group-open:text-primary-foreground">
+                Показать доклады
+              </span>
+            </summary>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {smalltechTalks.map((talk) => (
+                <a
+                  key={talk.url}
+                  href={talk.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group/talk rounded-2xl border border-border bg-background/70 p-5 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-elevated"
+                >
+                  <div className="flex flex-wrap gap-2 text-xs font-medium text-muted-foreground">
+                    <span className="rounded-full bg-secondary px-3 py-1">{talk.time}</span>
+                    <span className="rounded-full bg-secondary px-3 py-1">{talk.room}</span>
+                  </div>
+                  <h5 className="mt-4 font-display text-lg font-semibold leading-tight text-foreground">
+                    {talk.title}
+                  </h5>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{talk.summary}</p>
+                  <div className="mt-4 flex items-start justify-between gap-4">
+                    <p className="text-sm text-muted-foreground">
+                      <span className="font-medium text-foreground">{talk.speaker}</span>
+                      <br />
+                      {talk.company}
+                    </p>
+                    <ExternalLink className="mt-1 h-4 w-4 flex-none text-primary transition-transform group-hover/talk:translate-x-0.5" />
+                  </div>
+                </a>
+              ))}
+            </div>
+          </details>
         </div>
 
         <div className="mt-10">
