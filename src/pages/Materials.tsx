@@ -12,7 +12,7 @@ import tochkaLogo from "@/assets/partners/tochka-kipeniya.png";
 
 // ===== Types =====
 type Talk = {
-  kind?: "talk" | "panel";
+  kind?: "talk" | "panel" | "workshop";
   title: string;
   speaker?: string;
   description: string;
@@ -32,18 +32,98 @@ type Partner = {
 
 type Meetup = {
   id: string;
-  vol: string;
+  /** Version tag for meetups (Vol.1, Vol.2…). Optional for one-off events like conferences. */
+  vol?: string;
+  /** Overrides the header chip text. Defaults to `Митап {vol}`. */
+  chip?: string;
+  /** Short mono label used in the quick-nav. Defaults to `vol`. */
+  navLabel?: string;
   title: string;
   date: string;
   city: string;
   venue: { name: string; url?: string };
   intro: string;
+  /** Heading above the logo row. Defaults to «Партнёры митапа». */
+  partnersLabel?: string;
   partners: Partner[];
   talks: Talk[];
 };
 
 // ===== Data =====
 const MEETUPS: Meetup[] = [
+  {
+    id: "saint-highload-2026",
+    chip: "Конференция",
+    navLabel: "2026",
+    title: "Свой трек на Saint HighLoad++",
+    date: "22–23 июня 2026",
+    city: "Санкт-Петербург",
+    venue: { name: "Design District DAA" },
+    intro:
+      "На конференции Saint HighLoad++ 2026 мы собрали собственный трек, ориентированный на команды, которым не нужно копировать BigTech, чтобы решать свои инженерные задачи.",
+    partnersLabel: "Организатор",
+    partners: [{ name: "Онтико", url: "https://ontico.ru", label: "Онтико" }],
+    talks: [
+      {
+        title:
+          "«Давайте просто развернём свою LLM на 1Т параметров»: как выглядит self-hosted AI после первого миллиона запросов",
+        speaker: "Сергей Нотевский, Битрикс24",
+        description:
+          "Грабли self-hosted AI на опыте Битрикс24: контекст, vLLM, GPU-пулы, evals, качество, стоимость и миллионы запросов в месяц. Чек-лист решений и метрик для оценки готовности к своим моделям.",
+        embedSrc:
+          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239040&hash=747f0384bed7f9d730&hd=3",
+        slidesUrl: "/slides/saint-highload-2026-notevskiy.pdf",
+      },
+      {
+        title: "Почему хорошие инженеры не строят стартапы — и как это исправить",
+        speaker: "Алексей Шаблюк, независимый эксперт (ex-CTO VK Cloud, Kion)",
+        description:
+          "Пять конкретных блокеров, которые тормозят переход инженера в фаундера: три психологических, два структурных. Карта блокеров с методикой преодоления, фреймворк минимального стека фаундера, шаблон бизнес-эксперимента до первой строчки кода.",
+        embedSrc:
+          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239039&hash=bc83e640688f5d0fbe&hd=3",
+        slidesUrl: "/slides/saint-highload-2026-shablyuk.pdf",
+      },
+      {
+        title: "Безопасность AI-агентов: векторы угроз и механизмы защиты",
+        speaker: "Радда Юрьева, Positive Technologies",
+        description:
+          "Типовые виды защиты AI-агентов и их уязвимости с точки зрения пентестера. Обход логики системных промптов, обходы ML guardrails, LLM guardrails через подбор состязательных суффиксов. Алгоритм аудита для LLM-агентов, шаблоны защит, OWASP Top-10 LLM.",
+        embedSrc:
+          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239037&hash=07d71e5afc15196391&hd=3",
+        slidesUrl: "/slides/saint-highload-2026-yureva.pdf",
+      },
+      {
+        title: "Почему вам (скорее всего) не нужен локальный LLM-инференс",
+        speaker: "Егор Андреев, Впрод",
+        description:
+          "Где именно ломается экономика локального инференса. Разбор через TCO: аренда RTX 5090 за 50–90 тыс. рублей в месяц или покупка за 300–500 тыс. Исключения: ИБ, GPU-парк в наследство, CAPEX, постоянная нагрузка. Альтернативы: API/OpenRouter, отечественные сервисы.",
+        embedSrc:
+          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239036&hash=6db18ac695c76c3ea9&hd=3",
+        slidesUrl: "/slides/saint-highload-2026-andreev.pdf",
+      },
+      {
+        kind: "workshop",
+        title:
+          "Мастер-класс «Детские болезни доменных платформ: архитектурные ошибки, которые дорого чинить»",
+        speaker: "Екатерина Лысенко, независимый эксперт",
+        description:
+          "Повторяющиеся архитектурные ошибки в доменных платформах: FinTech, Compliance, e-commerce, каталог и витрины. Про решения, которые сначала «ну пока так», а на этапе роста становятся очень дорогими.",
+        embedSrc:
+          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239033&hash=dac64e998466dfc005&hd=3",
+        slidesUrl: "/slides/saint-highload-2026-lysenko.pdf",
+      },
+      {
+        title: "Уровни зрелости внедрения AI в процессы разработки",
+        speaker: "Иван Поддубный, Вебпрактик",
+        description:
+          "Мировые и локальные модели оценки зрелости AI в разработке. Как честно определить, на каком уровне находится команда или компания. Что меняется в инфраструктуре, процессах и роли разработчика на каждом следующем уровне. Инструмент самооценки.",
+        embedSrc:
+          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239031&hash=00d4642ee2beb79b14&hd=3",
+        slidesUrl: "https://north-leshiy.github.io/ai-maturity-model-summer2026/",
+        slidesLabel: "Открыть AI Maturity Model",
+      },
+    ],
+  },
   {
     id: "vol-2",
     vol: "Vol.2",
@@ -224,7 +304,13 @@ const VideoEmbed = ({ src, title }: { src: string; title: string }) => {
 };
 
 const TalkCard = ({ talk, index }: { talk: Talk; index: number }) => {
-  const isPanel = talk.kind === "panel";
+  const isSpecial = talk.kind === "panel" || talk.kind === "workshop";
+  const kindLabel =
+    talk.kind === "panel"
+      ? "круглый стол"
+      : talk.kind === "workshop"
+      ? "мастер-класс"
+      : "доклад";
   return (
     <article className="surface-card grid gap-6 rounded-2xl p-5 sm:p-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
       <div className="flex flex-col">
@@ -232,14 +318,8 @@ const TalkCard = ({ talk, index }: { talk: Talk; index: number }) => {
           <span className="font-mono-tech text-xs uppercase tracking-[0.2em] text-muted-foreground">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <span
-            className={
-              isPanel
-                ? "chip-amber"
-                : "chip"
-            }
-          >
-            {isPanel ? "круглый стол" : "доклад"}
+          <span className={isSpecial ? "chip-amber" : "chip"}>
+            {kindLabel}
           </span>
         </div>
         <h4 className="font-display text-xl font-semibold leading-snug text-balance sm:text-2xl">
@@ -280,7 +360,7 @@ const MeetupSection = ({ meetup }: { meetup: Meetup }) => {
       {/* Header */}
       <div className="mb-12 max-w-4xl">
         <div className="mb-5 flex flex-wrap items-center gap-3">
-          <span className="chip-amber">Митап {meetup.vol}</span>
+          <span className="chip-amber">{meetup.chip ?? `Митап ${meetup.vol}`}</span>
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/40 px-3 py-1 text-xs text-muted-foreground">
             <Calendar className="h-3.5 w-3.5" />
             {meetup.date}
@@ -314,7 +394,7 @@ const MeetupSection = ({ meetup }: { meetup: Meetup }) => {
       {/* Partners */}
       <div className="mb-12">
         <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Партнёры митапа
+          {meetup.partnersLabel ?? "Партнёры митапа"}
         </h3>
         <div className="flex flex-wrap gap-3">
           {meetup.partners.map((p) => (
@@ -367,7 +447,7 @@ const Materials = () => {
                   className="group inline-flex items-center gap-2 rounded-full border border-border bg-secondary/40 px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
                 >
                   <span className="font-mono-tech text-xs text-primary-glow">
-                    {m.vol}
+                    {m.navLabel ?? m.vol}
                   </span>
                   <span>{m.title}</span>
                   <ArrowDown className="h-3.5 w-3.5 opacity-60 transition-transform group-hover:translate-y-0.5" />
@@ -395,9 +475,9 @@ const Materials = () => {
         <div className="surface-card rounded-2xl p-8 text-center sm:p-12">
           <SectionHeading
             align="center"
-            eyebrow="следующий митап"
-            title={<>Vol.3 — уже в&nbsp;работе</>}
-            description="Запись и презентации появятся здесь сразу после мероприятия. Если хотите выступить или предложить тему — напишите нам."
+            eyebrow="что дальше"
+            title={<>Новые встречи — уже в&nbsp;работе</>}
+            description="Записи и презентации появляются здесь сразу после каждого митапа и выступления. Хотите выступить или предложить тему — напишите нам."
           />
         </div>
       </section>
