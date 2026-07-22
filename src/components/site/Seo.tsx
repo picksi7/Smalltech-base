@@ -26,13 +26,28 @@ const Seo = ({
   keywords,
 }: SeoProps) => {
   const canonical = `${SITE_URL}${path}`
-  const fullTitle = title.includes(SITE_NAME) ? title : title
+  const fullTitle = title
+
+  // react-helmet-async (через <Head> vite-react-ssg) сбрасывает <title>, если
+  // среди прямых детей есть falsy-узлы ({cond && <meta/>} → false). Поэтому все
+  // условные теги собираем в отфильтрованный массив — falsy к <Head> не попадают.
+  const optionalTags = [
+    keywords && <meta key="keywords" name="keywords" content={keywords} />,
+    type === 'article' && publishedTime && (
+      <meta key="published" property="article:published_time" content={publishedTime} />
+    ),
+    type === 'article' && modifiedTime && (
+      <meta key="modified" property="article:modified_time" content={modifiedTime} />
+    ),
+    type === 'article' && (
+      <meta key="author" property="article:author" content={SITE_NAME} />
+    ),
+  ].filter(Boolean)
 
   return (
     <Head>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
-      {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={canonical} />
 
       {/* Open Graph */}
@@ -52,16 +67,7 @@ const Seo = ({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
 
-      {/* Article-specific */}
-      {type === 'article' && publishedTime && (
-        <meta property="article:published_time" content={publishedTime} />
-      )}
-      {type === 'article' && modifiedTime && (
-        <meta property="article:modified_time" content={modifiedTime} />
-      )}
-      {type === 'article' && (
-        <meta property="article:author" content={SITE_NAME} />
-      )}
+      {optionalTags}
     </Head>
   )
 }
