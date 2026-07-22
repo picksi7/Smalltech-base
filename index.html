@@ -12,9 +12,9 @@
     <meta name="author" content="Смоллтех сообщество" />
 
     <!-- description, canonical и OG/Twitter-теги инжектит per-page <Head> из Seo.tsx (vite-react-ssg).
-         <title> оставлен в шаблоне: react-helmet-async@1.3.0 внутри vite-react-ssg@0.9-beta
-         не эмитит per-page <title> в статику (мета — да, title — нет), поэтому используем
-         общий заголовок как единый. Обновление либы позволит перейти на per-page title. -->
+         Этот <title> — базовый: vite-react-ssg@0.9-beta не эмитит per-page <title> в статику,
+         поэтому onFinished в vite.config.ts после сборки проставляет каждой странице свой
+         <title> из её og:title. Здесь остаётся заголовок главной как фолбэк. -->
     <title>Смоллтех — сообщество малых и средних ИТ-компаний</title>
 
     <!-- Yandex.Metrika counter -->
