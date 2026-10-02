@@ -4,24 +4,8 @@ import communityImg from "@/assets/community-orbit.jpg";
 import SectionHeading from "@/components/site/SectionHeading";
 import Seo from "@/components/site/Seo";
 import { OrganizationLd, BreadcrumbLd } from "@/components/site/JsonLd";
-
-const milestones = [
-  { year: "2024", title: "Чат соло-деврелов", text: "Несколько менеджеров технобренда из малых ИТ-компаний начинают собираться в чате — место поддержки и нестыдных вопросов." },
-  { year: "весна 2025", title: "Объединение", text: "Сообщество формируется в объединение для инженеров смоллтех-компаний и начинает публичную деятельность." },
-  { year: "лето 2025", title: "Стратегия и цель", text: "Сформулирована цель — «сделать смоллтех привлекательным», и стратегия — через коллаборацию, а не конкуренцию." },
-  { year: "осень 2025", title: "Партнёрство с Онтико", text: "Установлено долгосрочное сотрудничество с организатором крупнейших ИТ-конференций страны." },
-  { year: "зима 2025–26", title: "Исследование", text: "Проведено исследование болей и потребностей смоллтех-инженеров на базе шести крупных ИТ-конференций." },
-  { year: "2026", title: "Ядро + мероприятия", text: "Сформировано ядро активистов, расширен пулл соратников до 30+ компаний, проведены два офлайн-мероприятия и запланированы следующие." },
-];
-
-const done = [
-  "Сформулирована цель сообщества — «сделать смоллтех привлекательным».",
-  "Определена стратегия — через коллаборацию, а не конкуренцию.",
-  "Сформировано основное ядро активистов, расширен пулл ближайших соратников до 30 компаний.",
-  "Проведено исследование болей и потребностей смоллтех-инженеров.",
-  "Проведено два офлайн-мероприятия и запланированы следующие.",
-  "Установлено долгосрочное сотрудничество с Онтико.",
-];
+import Rich from "@/content/Rich";
+import { community as t } from "@/content/community";
 
 const Community = () => {
   return (
@@ -49,15 +33,12 @@ const Community = () => {
         />
         <div className="container-wide py-20 sm:py-28">
           <div className="max-w-3xl">
-            <span className="chip-amber">сообщество</span>
+            <span className="chip-amber">{t.hero.chip}</span>
             <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-5xl lg:text-6xl">
-              Соединяться вместо{" "}
-              <span className="text-gradient-amber">конкурировать</span>
+              <Rich text={t.hero.title} />
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg text-balance">
-              Мы объединяем усилия, работаем «вскладчину», помогаем друг другу с генерацией идей,
-              форматов, поиском ресурсов. Наши митапы — сборная солянка из разнобрендового мерча,
-              спикеров и идей.
+              {t.hero.description}
             </p>
           </div>
         </div>
@@ -66,12 +47,12 @@ const Community = () => {
       {/* DONE LIST */}
       <section className="container-wide py-20 sm:py-24">
         <SectionHeading
-          eyebrow="что мы уже сделали"
-          title="Шесть значимых шагов"
-          description="За год сообщество прошло путь от закрытого чата до публичного объединения с собственным исследованием и стратегическими партнёрствами."
+          eyebrow={t.done.eyebrow}
+          title={t.done.title}
+          description={t.done.description}
         />
         <div className="mt-12 grid gap-4 md:grid-cols-2">
-          {done.map((d) => (
+          {t.done.items.map((d) => (
             <div key={d} className="surface-card flex items-start gap-4 rounded-2xl p-5 sm:p-6">
               <div className="mt-0.5 flex h-7 w-7 flex-none items-center justify-center rounded-full bg-primary/15 text-primary">
                 <Check className="h-4 w-4" />
@@ -85,13 +66,13 @@ const Community = () => {
       {/* TIMELINE */}
       <section className="container-wide py-12 sm:py-20">
         <SectionHeading
-          eyebrow="хронология"
-          title="Как мы росли"
+          eyebrow={t.timeline.eyebrow}
+          title={t.timeline.title}
         />
         <div className="mt-12 relative">
           <div className="absolute left-4 top-0 bottom-0 w-px bg-border md:left-1/2" aria-hidden />
           <div className="space-y-10">
-            {milestones.map((m, i) => {
+            {t.timeline.milestones.map((m, i) => {
               const right = i % 2 === 1;
               return (
                 <div key={m.year} className="relative grid gap-4 md:grid-cols-2 md:gap-12">
@@ -114,23 +95,21 @@ const Community = () => {
         <div className="surface-card overflow-hidden rounded-3xl p-8 sm:p-12">
           <div className="grid gap-8 md:grid-cols-[1fr_1.4fr] md:items-center">
             <div>
-              <span className="chip-amber"><Handshake className="h-3.5 w-3.5" /> стратегический партнёр</span>
-              <h2 className="mt-5 font-display text-3xl font-semibold sm:text-4xl">Онтико</h2>
+              <span className="chip-amber"><Handshake className="h-3.5 w-3.5" /> {t.partner.chip}</span>
+              <h2 className="mt-5 font-display text-3xl font-semibold sm:text-4xl">{t.partner.title}</h2>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                Организатор крупнейших ИТ-конференций страны: HighLoad++, TeamLead Conf,
-                DevOpsConf, GolangConf, AiConf и других. Партнёрство даёт сообществу площадку
-                для исследований и мероприятий.
+                {t.partner.description}
               </p>
               <a
                 href="https://ontico.ru"
                 target="_blank" rel="noopener noreferrer"
                 className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary"
               >
-                ontico.ru <ArrowRight className="h-4 w-4" />
+                {t.partner.linkLabel} <ArrowRight className="h-4 w-4" />
               </a>
             </div>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {["HighLoad++", "TeamLead Conf", "DevOpsConf", "GolangConf", "AiConf", "и другие"].map((c) => (
+              {t.partner.conferences.map((c) => (
                 <div key={c} className="rounded-xl border border-border bg-secondary/40 px-4 py-3 text-center text-sm">
                   {c}
                 </div>
@@ -149,14 +128,12 @@ const Community = () => {
             aria-label="Открыть раздел материалов"
           >
             <Calendar className="h-5 w-5 text-primary" />
-            <h3 className="mt-3 font-display text-xl font-semibold transition-colors group-hover:text-primary">Мероприятия</h3>
+            <h3 className="mt-3 font-display text-xl font-semibold transition-colors group-hover:text-primary">{t.events.title}</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              За год — два офлайн-митапа сборной солянкой: разнобрендовый мерч, спикеры из разных
-              компаний, общие темы. Следующие события уже в работе. Если хотите принять у себя
-              митап или выступить — напишите.
+              {t.events.description}
             </p>
             <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary">
-              Смотреть материалы <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              {t.events.linkLabel} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </span>
           </Link>
           <a
@@ -167,13 +144,12 @@ const Community = () => {
             aria-label="Открыть Telegram-канал Smalltech"
           >
             <Users className="h-5 w-5 text-primary" />
-            <h3 className="mt-3 font-display text-xl font-semibold transition-colors group-hover:text-primary">Ядро активистов</h3>
+            <h3 className="mt-3 font-display text-xl font-semibold transition-colors group-hover:text-primary">{t.core.title}</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              30+ компаний в ближайшем пулле соратников. Деврелы, менеджеры технобренда, инженеры,
-              CTO. Мы остаёмся открытыми — если ваш контекст похож, добро пожаловать.
+              {t.core.description}
             </p>
             <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary">
-              Перейти в Telegram <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              {t.core.linkLabel} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </span>
           </a>
         </div>
@@ -185,14 +161,14 @@ const Community = () => {
           <div className="pointer-events-none absolute -right-24 -bottom-24 h-80 w-80 rounded-full bg-amber/15 blur-3xl" aria-hidden />
           <div className="relative grid gap-8 md:grid-cols-[1.5fr_1fr] md:items-center">
             <h2 className="font-display text-3xl font-semibold sm:text-4xl text-balance">
-              Если разделяете цель и стратегию — давайте знакомиться.
+              {t.cta.title}
             </h2>
             <div className="flex md:justify-end">
               <Link
                 to="/join"
                 className="inline-flex h-12 items-center gap-2 rounded-full bg-gradient-amber px-6 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:scale-[1.02]"
               >
-                Как присоединиться <ArrowRight className="h-4 w-4" />
+                {t.cta.button} <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           </div>

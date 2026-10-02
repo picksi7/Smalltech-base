@@ -4,245 +4,24 @@ import SectionHeading from "@/components/site/SectionHeading";
 import Seo from "@/components/site/Seo";
 import { OrganizationLd, BreadcrumbLd } from "@/components/site/JsonLd";
 
+import Rich from "@/content/Rich";
+import { MEETUPS, materials as t, type LogoKey, type Partner, type Talk, type Meetup } from "@/content/materials";
+
 import petrovichLogo from "@/assets/partners/petrovich-tech.png";
 import vitechLogo from "@/assets/partners/vitech.png";
 import pprLogo from "@/assets/partners/ppr.png";
-import griLogo from "@/assets/partners/gri.png";
 import ithrLogo from "@/assets/partners/it-hr-awards.png";
 import byteLogo from "@/assets/partners/byte.png";
 import tochkaLogo from "@/assets/partners/tochka-kipeniya.png";
 
-// ===== Types =====
-type Talk = {
-  kind?: "talk" | "panel" | "workshop";
-  title: string;
-  speaker?: string;
-  description: string;
-  embedSrc: string;
-  slidesUrl?: string;
-  slidesLabel?: string;
+const LOGOS: Record<LogoKey, string> = {
+  petrovich: petrovichLogo,
+  vitech: vitechLogo,
+  ppr: pprLogo,
+  ithr: ithrLogo,
+  byte: byteLogo,
+  tochka: tochkaLogo,
 };
-
-type Partner = {
-  name: string;
-  url: string;
-  /** Optional image logo — when absent, we render a clean wordmark tile. */
-  logo?: string;
-  /** Short label shown when there is no image logo. */
-  label?: string;
-};
-
-type Meetup = {
-  id: string;
-  /** Version tag for meetups (Vol.1, Vol.2…). Optional for one-off events like conferences. */
-  vol?: string;
-  /** Overrides the header chip text. Defaults to `Митап {vol}`. */
-  chip?: string;
-  /** Short mono label used in the quick-nav. Defaults to `vol`. */
-  navLabel?: string;
-  title: string;
-  date: string;
-  city: string;
-  venue: { name: string; url?: string };
-  intro: string;
-  /** Heading above the logo row. Defaults to «Партнёры митапа». */
-  partnersLabel?: string;
-  partners: Partner[];
-  talks: Talk[];
-};
-
-// ===== Data =====
-const MEETUPS: Meetup[] = [
-  {
-    id: "saint-highload-2026",
-    chip: "Конференция",
-    navLabel: "2026",
-    title: "Свой трек на Saint HighLoad++",
-    date: "22–23 июня 2026",
-    city: "Санкт-Петербург",
-    venue: { name: "Design District DAA" },
-    intro:
-      "На конференции Saint HighLoad++ 2026 мы собрали собственный трек, ориентированный на команды, которым не нужно копировать BigTech, чтобы решать свои инженерные задачи.",
-    partnersLabel: "Организатор",
-    partners: [{ name: "Онтико", url: "https://ontico.ru", label: "Онтико" }],
-    talks: [
-      {
-        title:
-          "«Давайте просто развернём свою LLM на 1Т параметров»: как выглядит self-hosted AI после первого миллиона запросов",
-        speaker: "Сергей Нотевский, Битрикс24",
-        description:
-          "Грабли self-hosted AI на опыте Битрикс24: контекст, vLLM, GPU-пулы, evals, качество, стоимость и миллионы запросов в месяц. Чек-лист решений и метрик для оценки готовности к своим моделям.",
-        embedSrc:
-          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239040&hash=747f0384bed7f9d730&hd=3",
-        slidesUrl: "/slides/saint-highload-2026-notevskiy.pdf",
-      },
-      {
-        title: "Почему хорошие инженеры не строят стартапы — и как это исправить",
-        speaker: "Алексей Шаблюк, независимый эксперт (ex-CTO VK Cloud, Kion)",
-        description:
-          "Пять конкретных блокеров, которые тормозят переход инженера в фаундера: три психологических, два структурных. Карта блокеров с методикой преодоления, фреймворк минимального стека фаундера, шаблон бизнес-эксперимента до первой строчки кода.",
-        embedSrc:
-          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239039&hash=bc83e640688f5d0fbe&hd=3",
-        slidesUrl: "/slides/saint-highload-2026-shablyuk.pdf",
-      },
-      {
-        title: "Безопасность AI-агентов: векторы угроз и механизмы защиты",
-        speaker: "Радда Юрьева, Positive Technologies",
-        description:
-          "Типовые виды защиты AI-агентов и их уязвимости с точки зрения пентестера. Обход логики системных промптов, обходы ML guardrails, LLM guardrails через подбор состязательных суффиксов. Алгоритм аудита для LLM-агентов, шаблоны защит, OWASP Top-10 LLM.",
-        embedSrc:
-          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239037&hash=07d71e5afc15196391&hd=3",
-        slidesUrl: "/slides/saint-highload-2026-yureva.pdf",
-      },
-      {
-        title: "Почему вам (скорее всего) не нужен локальный LLM-инференс",
-        speaker: "Егор Андреев, Впрод",
-        description:
-          "Где именно ломается экономика локального инференса. Разбор через TCO: аренда RTX 5090 за 50–90 тыс. рублей в месяц или покупка за 300–500 тыс. Исключения: ИБ, GPU-парк в наследство, CAPEX, постоянная нагрузка. Альтернативы: API/OpenRouter, отечественные сервисы.",
-        embedSrc:
-          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239036&hash=6db18ac695c76c3ea9&hd=3",
-        slidesUrl: "/slides/saint-highload-2026-andreev.pdf",
-      },
-      {
-        kind: "workshop",
-        title:
-          "Мастер-класс «Детские болезни доменных платформ: архитектурные ошибки, которые дорого чинить»",
-        speaker: "Екатерина Лысенко, независимый эксперт",
-        description:
-          "Повторяющиеся архитектурные ошибки в доменных платформах: FinTech, Compliance, e-commerce, каталог и витрины. Про решения, которые сначала «ну пока так», а на этапе роста становятся очень дорогими.",
-        embedSrc:
-          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239033&hash=dac64e998466dfc005&hd=3",
-        slidesUrl: "/slides/saint-highload-2026-lysenko.pdf",
-      },
-      {
-        title: "Уровни зрелости внедрения AI в процессы разработки",
-        speaker: "Иван Поддубный, Вебпрактик",
-        description:
-          "Мировые и локальные модели оценки зрелости AI в разработке. Как честно определить, на каком уровне находится команда или компания. Что меняется в инфраструктуре, процессах и роли разработчика на каждом следующем уровне. Инструмент самооценки.",
-        embedSrc:
-          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239031&hash=00d4642ee2beb79b14&hd=3",
-        slidesUrl: "https://north-leshiy.github.io/ai-maturity-model-summer2026/",
-        slidesLabel: "Открыть AI Maturity Model",
-      },
-    ],
-  },
-  {
-    id: "vol-2",
-    vol: "Vol.2",
-    title: "AI и лидерство в смоллтехе",
-    date: "30 января 2026",
-    city: "Москва",
-    venue: { name: "Ви.Tech" },
-    intro:
-      "Три доклада и круглый стол. Программа рассчитана на совместную работу с аудиторией: разбираем сложные кейсы, проектируем алгоритм внедрения изменений вместе.",
-    partners: [
-      { name: "Ви.Tech", url: "https://vitech.ru", logo: vitechLogo },
-      { name: "ППР — Передовые Платежные Решения", url: "https://ppr.ru", logo: pprLogo },
-      { name: "Петрович-Тех", url: "https://petrovich.tech/", logo: petrovichLogo },
-    ],
-    talks: [
-      {
-        title: "Как обуздать звезду: инструкция для руководителя на новом проекте",
-        speaker: "Михаил Шваркунов, GRI",
-        description:
-          "О том, как работать с устоявшимся авторитетом, если вы — новый лид или несёте изменения в привычные процессы. Михаил предлагает свои наработки и разбирает сложные случаи вместе с участниками.",
-        embedSrc:
-          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239023&hash=d871f78b52d17360&hd=3",
-        slidesUrl: "https://vk.cc/cTZU7n",
-      },
-      {
-        title: "Уровни зрелости внедрения AI в процессы",
-        speaker: "Иван Поддубный, Вебпрактик",
-        description:
-          "Прежде чем выбрать, куда двигаться, нужно определить своё текущее местоположение. Внедрение сложных изменений сильно зависит от уровня зрелости коллектива и процессов. Вместе с Иваном учимся определять свою точку на карте и проектируем дальнейший путь.",
-        embedSrc:
-          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239024&hash=c5fba70629e77644&hd=3",
-        slidesUrl: "https://north-leshiy.github.io/ai-maturity-model/",
-        slidesLabel: "Открыть AI Maturity Model",
-      },
-      {
-        title: "Проект AI-Суфлёр для продаж и сервиса",
-        speaker: "Дмитрий Громов, Надежда Кохтачева, Передовые Платежные Решения",
-        description:
-          "Доклад объединяет темы лидерства и внедрения изменений на примере масштабного и долгого пути проекта Дмитрия и Надежды. Обсуждаем, как формируется цель проекта, как бизнес принимает решения, как сформировать команду и что предусмотреть на самом старте.",
-        embedSrc:
-          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239025&hash=5ba84fb72a4cb980&hd=3",
-        slidesUrl: "https://vk.cc/cTZUq4",
-      },
-      {
-        kind: "panel",
-        title: "Круглый стол: Алгоритм внедрения ИИ в смоллтехе",
-        description:
-          "При активном участии аудитории разрабатываем алгоритм внедрения изменений на примере AI — он поможет всем причастным предусмотреть подводные камни ещё на старте и подсветить опасные места.",
-        embedSrc:
-          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239027&hash=8d41cbaf20f09a3e&hd=3",
-      },
-    ],
-  },
-  {
-    id: "vol-1",
-    vol: "Vol.1",
-    title: "Первый опыт",
-    date: "26 апреля 2025",
-    city: "Санкт-Петербург",
-    venue: {
-      name: "Предпринимательская Точка Кипения ПромТехДизайн",
-      url: "https://t.me/tkpromtechdesign",
-    },
-    intro:
-      "Первый митап смоллтехов в Санкт-Петербурге: говорим честно про перегретый рынок труда, стажировки за пределами больших корпораций и роль первого опыта.",
-    partners: [
-      { name: "IT HR Awards", url: "https://t.me/ithrawards", logo: ithrLogo },
-      { name: "Postgres Professional", url: "https://t.me/PostgresProEdu", label: "Postgres Pro" },
-      { name: "ИнфоТеКС", url: "https://t.me/infotecsintern", label: "ИнфоТеКС" },
-      { name: "Петрович-Тех", url: "https://petrovich.tech/", logo: petrovichLogo },
-      { name: "Byte", url: "https://t.me/ByteITclub", logo: byteLogo },
-      {
-        name: "Точка Кипения ПромТехДизайн",
-        url: "https://t.me/tkpromtechdesign",
-        logo: tochkaLogo,
-      },
-    ],
-    talks: [
-      {
-        title: "Работа есть. Люди есть. Почему всё так плохо с рынком труда?",
-        speaker: "Альберт Степанцов, Спринт-Ф",
-        description:
-          "Поговорим честно: рынок перегрет, вакансии и резюме не сходятся, алгоритмы буксуют, а люди теряются в потоке. Причина? Старые подходы больше не работают — и на их место пока ничего внятного не пришло.",
-        embedSrc:
-          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239019&hash=5f3320be294b6088&hd=3",
-        slidesUrl: "https://vk.cc/cLSgpf",
-      },
-      {
-        title: "Стажировка и первый опыт. Куда если не Яндекс?",
-        speaker: "Елизавета Егорнова, Атом",
-        description:
-          "Цель доклада — показать, что опыт и жизнь студента уже большой опыт. Если набор на стажировку идёт не оптом (20–30 человек разом), а локальные истории ведёт один конкретный человек со стороны организаторов — он работает более вдохновлённо и точечно.",
-        embedSrc:
-          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239021&hash=56685eae02f665f3&hd=3",
-      },
-      {
-        title: "Как тестировать на стажировке без подсказок и фреймворков",
-        speaker: "Дмитрий Козлов, ИнфоТеКС",
-        description:
-          "Реальная история о том, как я столкнулся с отсутствием готовых инструментов, искал не самые очевидные варианты решения, победил проблемы отладки с помощью кастомного логирования и нашёл спасение в Python-библиотеке Pexpect.",
-        embedSrc:
-          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239017&hash=fb496991389e7bfb&hd=3",
-        slidesUrl: "https://vk.cc/cLSgio",
-      },
-      {
-        kind: "panel",
-        title: "Интерактив: «Отсобеседуй своего потенциального руководителя»",
-        speaker:
-          "Анна Афонина (ProIT Fest), Виталий Левченко (Wildberries), Анатолий Иванов (investing.com)",
-        description:
-          "Интерактивный формат, в котором аудитория задаёт вопросы потенциальным руководителям и проверяет, насколько комфортно с ними работать.",
-        embedSrc:
-          "https://vkvideo.ru/video_ext.php?oid=-230456834&id=456239018&hash=527cc3690e5254d9&hd=3",
-      },
-    ],
-  },
-];
 
 // ===== Sub-components =====
 
@@ -256,7 +35,7 @@ const PartnerLogo = ({ partner }: { partner: Partner }) => (
   >
     {partner.logo ? (
       <img
-        src={partner.logo}
+        src={LOGOS[partner.logo]}
         alt={partner.name}
         className="h-full w-full object-contain transition-transform group-hover:scale-[1.04]"
         loading="lazy"
@@ -298,7 +77,7 @@ const VideoEmbed = ({ src, title }: { src: string; title: string }) => {
         <Play className="h-7 w-7 translate-x-0.5 fill-current sm:h-8 sm:w-8" />
       </span>
       <span className="absolute bottom-3 left-3 right-3 z-10 truncate rounded-md bg-background/70 px-2 py-1 text-left text-xs text-muted-foreground backdrop-blur sm:text-sm">
-        VK Video · нажмите для запуска
+        {t.labels.videoHint}
       </span>
     </button>
   );
@@ -308,10 +87,10 @@ const TalkCard = ({ talk, index }: { talk: Talk; index: number }) => {
   const isSpecial = talk.kind === "panel" || talk.kind === "workshop";
   const kindLabel =
     talk.kind === "panel"
-      ? "круглый стол"
+      ? t.labels.kindPanel
       : talk.kind === "workshop"
-      ? "мастер-класс"
-      : "доклад";
+      ? t.labels.kindWorkshop
+      : t.labels.kindTalk;
   return (
     <article className="surface-card grid gap-6 rounded-2xl p-5 sm:p-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
       <div className="flex flex-col">
@@ -339,7 +118,7 @@ const TalkCard = ({ talk, index }: { talk: Talk; index: number }) => {
             className="mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-sm font-medium text-primary-glow transition-colors hover:bg-primary/20"
           >
             <FileText className="h-4 w-4" />
-            {talk.slidesLabel ?? "Презентация"}
+            {talk.slidesLabel ?? t.labels.defaultSlidesLabel}
             <ExternalLink className="h-3.5 w-3.5 opacity-70" />
           </a>
         )}
@@ -360,7 +139,7 @@ const MeetupSection = ({ meetup }: { meetup: Meetup }) => {
       {/* Header */}
       <div className="mb-12 max-w-4xl">
         <div className="mb-5 flex flex-wrap items-center gap-3">
-          <span className="chip-amber">{meetup.chip ?? `Митап ${meetup.vol}`}</span>
+          <span className="chip-amber">{meetup.chip ?? `${t.labels.meetupChipPrefix} ${meetup.vol}`}</span>
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/40 px-3 py-1 text-xs text-muted-foreground">
             <Calendar className="h-3.5 w-3.5" />
             {meetup.date}
@@ -374,7 +153,7 @@ const MeetupSection = ({ meetup }: { meetup: Meetup }) => {
           {meetup.title}
         </h2>
         <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg text-balance">
-          Нас принимал{" "}
+          {t.labels.hostedBy}{" "}
           {meetup.venue.url ? (
             <a
               href={meetup.venue.url}
@@ -393,7 +172,7 @@ const MeetupSection = ({ meetup }: { meetup: Meetup }) => {
       {/* Partners */}
       <div className="mb-12">
         <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          {meetup.partnersLabel ?? "Партнёры митапа"}
+          {meetup.partnersLabel ?? t.labels.defaultPartnersLabel}
         </h3>
         <div className="flex flex-wrap gap-3">
           {meetup.partners.map((p) => (
@@ -435,15 +214,12 @@ const Materials = () => {
         />
         <div className="container-wide py-20 sm:py-28">
           <div className="max-w-3xl">
-            <span className="chip-amber">материалы</span>
+            <span className="chip-amber">{t.hero.chip}</span>
             <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-5xl lg:text-6xl">
-              Записи докладов и{" "}
-              <span className="text-gradient-amber">презентации</span>
+              <Rich text={t.hero.title} />
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg text-balance">
-              После каждого митапа сообщество выкладывает видео выступлений и
-              слайды спикеров — чтобы важные разговоры жили дальше и были
-              доступны всем смоллтехам, не только тем, кто был в зале.
+              {t.hero.description}
             </p>
 
             {/* Quick nav */}
@@ -483,9 +259,9 @@ const Materials = () => {
         <div className="surface-card rounded-2xl p-8 text-center sm:p-12">
           <SectionHeading
             align="center"
-            eyebrow="что дальше"
-            title={<>Новые встречи — уже в&nbsp;работе</>}
-            description="Записи и презентации появляются здесь сразу после каждого митапа и выступления. Хотите выступить или предложить тему — напишите нам."
+            eyebrow={t.outro.eyebrow}
+            title={<Rich text={t.outro.title} />}
+            description={t.outro.description}
           />
         </div>
       </section>

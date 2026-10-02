@@ -3,16 +3,9 @@ import { useState } from "react";
 import { Menu, X, Github } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Logo from "./Logo";
+import { site } from "@/content/site";
 
-const NAV = [
-  { to: "/", label: "Главная" },
-  { to: "/manifesto", label: "Манифест" },
-  { to: "/research", label: "Исследование и программа" },
-  { to: "/community", label: "Сообщество" },
-  { to: "/materials", label: "Материалы" },
-  { to: "/partnership", label: "Партнёрство" },
-  { to: "/join", label: "Участвовать" },
-];
+const NAV = site.nav;
 
 const SiteHeader = () => {
   const [open, setOpen] = useState(false);
@@ -23,7 +16,7 @@ const SiteHeader = () => {
         <Link to="/" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
           <Logo variant="compact" className="text-base sm:text-lg" />
           <span className="hidden text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:inline">
-            сообщество
+            {site.header.logoSuffix}
           </span>
         </Link>
 
@@ -64,7 +57,7 @@ const SiteHeader = () => {
             className="inline-flex h-9 items-center rounded-full bg-gradient-amber px-4 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:scale-[1.02]"
             onClick={() => window.ym?.(108988295, 'reachGoal', 'click_header_join_telegram')}
           >
-            Присоединиться
+            {site.header.joinButton}
           </a>
         </div>
 
@@ -108,7 +101,7 @@ const SiteHeader = () => {
               }}
               className="mt-2 inline-flex h-11 items-center justify-center rounded-full bg-gradient-amber text-sm font-medium text-primary-foreground"
             >
-              Присоединиться
+              {site.header.joinButton}
             </a>
           </nav>
         </div>

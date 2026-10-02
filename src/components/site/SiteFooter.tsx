@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Github, Mail } from "lucide-react";
 import Logo from "./Logo";
+import { site } from "@/content/site";
 
 const SiteFooter = () => {
   return (
@@ -9,33 +10,31 @@ const SiteFooter = () => {
         <div>
           <Logo variant="compact" className="text-xl" />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-            Объединение инженеров, деврелов и менеджеров технобренда малых и средних
-            ИТ-компаний. Делаем смоллтех привлекательным — через коллаборацию, а не конкуренцию.
+            {site.footer.tagline}
           </p>
         </div>
 
         <div>
           <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            Разделы
+            {site.footer.sectionsTitle}
           </h4>
           <ul className="space-y-2 text-sm">
-            <li><Link to="/manifesto" className="link-underline">Манифест</Link></li>
-            <li><Link to="/research" className="link-underline">Исследование и программа</Link></li>
-            <li><Link to="/community" className="link-underline">Сообщество</Link></li>
-            <li><Link to="/materials" className="link-underline">Материалы</Link></li>
-            <li><Link to="/partnership" className="link-underline">Партнёрство</Link></li>
-            <li><Link to="/join" className="link-underline">Участвовать</Link></li>
+            {site.nav
+              .filter((item) => item.to !== "/")
+              .map((item) => (
+                <li key={item.to}><Link to={item.to} className="link-underline">{item.label}</Link></li>
+              ))}
           </ul>
         </div>
 
         <div>
           <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            Партнёры
+            {site.footer.partnersTitle}
           </h4>
           <ul className="space-y-2 text-sm">
             <li>
               <a href="https://ontico.ru" target="_blank" rel="noreferrer" className="link-underline">
-                Онтико
+                {site.footer.partnerName}
               </a>
             </li>
           </ul>
@@ -43,17 +42,17 @@ const SiteFooter = () => {
 
         <div>
           <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            Контакт
+            {site.footer.contactTitle}
           </h4>
           <ul className="space-y-3 text-sm">
             <li>
               <a href="https://github.com/picksi7/Smalltech" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 link-underline">
-                <Github className="h-4 w-4" /> GitHub
+                <Github className="h-4 w-4" /> {site.footer.githubLabel}
               </a>
             </li>
             <li>
-              <a href="mailto:small.tech.conf@gmail.com" className="inline-flex items-center gap-2 link-underline">
-                <Mail className="h-4 w-4" /> small.tech.conf@gmail.com
+              <a href={`mailto:${site.footer.email}`} className="inline-flex items-center gap-2 link-underline">
+                <Mail className="h-4 w-4" /> {site.footer.email}
               </a>
             </li>
           </ul>
@@ -62,8 +61,8 @@ const SiteFooter = () => {
 
       <div className="border-t border-border/60">
         <div className="container-wide flex flex-col items-start justify-between gap-3 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center">
-          <p>© {new Date().getFullYear()} Смоллтех сообщество. Сайт открыт к контрибьютам.</p>
-          <p className="font-mono-tech">v0.1 · public beta</p>
+          <p>© {new Date().getFullYear()} {site.footer.copyright}</p>
+          <p className="font-mono-tech">{site.footer.version}</p>
         </div>
       </div>
     </footer>

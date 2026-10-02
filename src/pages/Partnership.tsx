@@ -14,70 +14,8 @@ import {
 import SectionHeading from "@/components/site/SectionHeading";
 import Seo from "@/components/site/Seo";
 import { OrganizationLd, BreadcrumbLd } from "@/components/site/JsonLd";
-
-const smalltechTalks = [
-  {
-    time: "22 июня, 10:00–12:00",
-    room: "Зал Розовый",
-    title:
-      "Мастер-класс «Детские болезни доменных платформ в BigTech: архитектурные ошибки, которые дорого чинить»",
-    speaker: "Екатерина Лысенко",
-    company: "Независимый эксперт",
-    url: "https://highload.ru/spb/2026/abstracts/17514",
-    summary:
-      "Разбор повторяющихся архитектурных ошибок в доменных платформах: как решения «пока так» становятся дорогими при росте.",
-  },
-  {
-    time: "22 июня, 13:30–14:20",
-    room: "Зал Синий",
-    title: "Опыт перехода от MaaS к self-hosted/on-premise моделям: проблемы, боли, решения",
-    speaker: "Сергей Нотевский",
-    company: "Битрикс24",
-    url: "https://highload.ru/spb/2026/abstracts/17479",
-    summary:
-      "Практический опыт переезда AI-сценариев с вендорских моделей на локальные LLM, STT и эмбеддинги с инженерными компромиссами.",
-  },
-  {
-    time: "22 июня, 15:50–16:40",
-    room: "Зал Синий",
-    title: "Безопасность AI-агентов: векторы угроз и механизмы защиты",
-    speaker: "Юрьева Радда",
-    company: "Positive Technologies",
-    url: "https://highload.ru/spb/2026/abstracts/16914",
-    summary:
-      "Типовые атаки на AI-агентов и шаблоны защиты: от prompt-injection до guardrails и аудита собственных LLM-решений.",
-  },
-  {
-    time: "22 июня, 17:00–17:50",
-    room: "Зал Синий",
-    title: "Как колоночное хранилище может помочь legacy?",
-    speaker: "Михаил Шишкин",
-    company: "ООО Газинформсервис",
-    url: "https://highload.ru/spb/2026/abstracts/17966",
-    summary:
-      "Кейс оживления нагруженного legacy-проекта через применение преимуществ колоночного хранилища к проблемному паттерну временных таблиц.",
-  },
-  {
-    time: "22 июня, 18:10–19:00",
-    room: "Зал Синий",
-    title: "Почему вам (скорее всего) не нужен локальный LLM-инференс",
-    speaker: "Егор Андреев",
-    company: "Admindivision / Впрод",
-    url: "https://highload.ru/spb/2026/abstracts/18318",
-    summary:
-      "TCO локального LLM-инференса для малых и средних компаний: когда GPU не окупается и какие альтернативы рассмотреть.",
-  },
-  {
-    time: "23 июня, 12:20–13:10",
-    room: "Зал Башня",
-    title: "FinOps: Anomaly Management как версия Incident Management",
-    speaker: "Максим Бурцев",
-    company: "Купер.тех",
-    url: "https://highload.ru/spb/2026/abstracts/18032",
-    summary:
-      "Как переиспользовать зрелые процессы incident/problem management для управления финансовыми аномалиями и расходами на облака.",
-  },
-];
+import Rich from "@/content/Rich";
+import { partnership as t } from "@/content/partnership";
 
 const Partnership = () => {
   return (
@@ -102,14 +40,13 @@ const Partnership = () => {
           <div className="max-w-3xl">
             <span className="chip-amber">
               <Handshake className="h-3.5 w-3.5" />
-              партнёрство
+              {t.hero.chip}
             </span>
             <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-5xl lg:text-6xl">
-              Где встречается <span className="text-gradient-amber">смоллтех</span>
+              <Rich text={t.hero.title} />
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg text-balance">
-              Совместные мероприятия и эксклюзивные форматы участия в крупнейших ИТ-конференциях
-              страны. Мы открываем смоллтехам двери, к которым раньше не было ключей.
+              {t.hero.description}
             </p>
           </div>
         </div>
@@ -117,9 +54,9 @@ const Partnership = () => {
 
       <section id="partnership_meetup" className="container-wide py-20 sm:py-24">
         <SectionHeading
-          eyebrow="01 · ближайшее событие"
-          title="Smalltech Meetup Vol.3: Аналитика"
-          description="Третий митап сообщества — про аналитику в смоллтехе. Ждём прикладные темы и реализованные кейсы."
+          eyebrow={t.meetup.eyebrow}
+          title={t.meetup.title}
+          description={t.meetup.description}
         />
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
@@ -130,37 +67,35 @@ const Partnership = () => {
             />
             <div className="relative">
               <span className="chip">
-                <Mic className="h-3.5 w-3.5" /> Call for Papers
+                <Mic className="h-3.5 w-3.5" /> {t.meetup.chip}
               </span>
               <h3 className="mt-5 font-display text-2xl font-semibold sm:text-3xl">
-                Расскажите, чем живёте и чего достигаете подручными инструментами
+                {t.meetup.cfpTitle}
               </h3>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                Ждём прикладные — именно к смоллтехам — темы и реализованные кейсы. Поделитесь
-                тем, как ваши находки и решения могут помочь товарищам-аналитикам в маленьких ИТ.
-                Без бигтех-бюджетов, без идеальных условий — про то, что работает на самом деле.
+                {t.meetup.cfpText}
               </p>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-3">
                 <div className="rounded-2xl border border-border bg-secondary/40 p-5">
                   <div className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                    <Calendar className="h-3.5 w-3.5" /> когда
+                    <Calendar className="h-3.5 w-3.5" /> {t.meetup.whenLabel}
                   </div>
-                  <p className="mt-2 font-display text-2xl font-semibold">28 мая</p>
+                  <p className="mt-2 font-display text-2xl font-semibold">{t.meetup.whenValue}</p>
                 </div>
                 <div className="rounded-2xl border border-border bg-secondary/40 p-5">
                   <div className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                    <MapPin className="h-3.5 w-3.5" /> где
+                    <MapPin className="h-3.5 w-3.5" /> {t.meetup.whereLabel}
                   </div>
                   <p className="mt-2 font-display text-base font-semibold leading-tight">
-                    Офис Петрович-Тех
+                    {t.meetup.whereValue}
                   </p>
                 </div>
                 <div className="rounded-2xl border border-border bg-secondary/40 p-5">
                   <div className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                    <Send className="h-3.5 w-3.5" /> дедлайн заявок
+                    <Send className="h-3.5 w-3.5" /> {t.meetup.deadlineLabel}
                   </div>
-                  <p className="mt-2 font-display text-2xl font-semibold">13 мая</p>
+                  <p className="mt-2 font-display text-2xl font-semibold">{t.meetup.deadlineValue}</p>
                 </div>
               </div>
             </div>
@@ -169,18 +104,16 @@ const Partnership = () => {
           <div className="grid gap-4">
             <div className="surface-card rounded-2xl p-6">
               <Users className="h-5 w-5 text-primary" />
-              <h4 className="mt-3 font-display text-lg font-semibold">Кого особенно ждём</h4>
+              <h4 className="mt-3 font-display text-lg font-semibold">{t.meetup.whoTitle}</h4>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Аналитикам, продакт-аналитикам, дата-инженерам и тимлидам аналитических команд из
-                смолл- и мидтех-компаний.
+                {t.meetup.whoText}
               </p>
             </div>
             <div className="surface-card rounded-2xl p-6">
               <BarChart3 className="h-5 w-5 text-primary" />
-              <h4 className="mt-3 font-display text-lg font-semibold">О чём говорим</h4>
+              <h4 className="mt-3 font-display text-lg font-semibold">{t.meetup.topicsTitle}</h4>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Метрики, эксперименты, модели, дашборды, инструменты — всё, что вы построили
-                подручными средствами и что можно повторить в похожем контексте.
+                {t.meetup.topicsText}
               </p>
             </div>
           </div>
@@ -189,9 +122,9 @@ const Partnership = () => {
 
       <section id="partnership_ontico" className="container-wide py-12 sm:py-20">
         <SectionHeading
-          eyebrow="02 · эксклюзивное партнёрство"
-          title="Смоллтех аллея на Saint HighLoad++"
-          description="Онтико заключил с сообществом эксклюзивное партнёрство: Смоллтех получает возможность громко заявить о себе на крупнейшей профильной конференции Петербурга."
+          eyebrow={t.ontico.eyebrow}
+          title={t.ontico.title}
+          description={t.ontico.description}
         />
 
         <div className="mt-12 grid gap-5">
@@ -201,18 +134,17 @@ const Partnership = () => {
             className="surface-card group relative overflow-hidden rounded-3xl p-7 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-elevated sm:p-8"
           >
             <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-primary">
-              <MapPin className="h-3.5 w-3.5" /> Санкт-Петербург
+              <MapPin className="h-3.5 w-3.5" /> {t.ontico.conference.city}
             </div>
             <h3 className="mt-4 font-display text-2xl font-semibold sm:text-3xl">
-              Saint HighLoad++ 2026
+              {t.ontico.conference.title}
             </h3>
-            <p className="mt-2 font-mono-tech text-sm text-muted-foreground">22–23 июня 2026</p>
+            <p className="mt-2 font-mono-tech text-sm text-muted-foreground">{t.ontico.conference.dates}</p>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Профессиональная конференция разработчиков высоконагруженных систем. 1500–1700
-              участников офлайн, 7–8 потоков докладов.
+              {t.ontico.conference.description}
             </p>
             <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary">
-              highload.ru/spb/2026
+              {t.ontico.conference.linkLabel}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </div>
           </a>
@@ -221,26 +153,23 @@ const Partnership = () => {
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           <div className="surface-card rounded-3xl p-7 sm:p-8">
             <Megaphone className="h-5 w-5 text-primary" />
-            <h4 className="mt-3 font-display text-lg font-semibold">Зонированное пространство</h4>
+            <h4 className="mt-3 font-display text-lg font-semibold">{t.ontico.zone.title}</h4>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Смоллтех-аллея — выделенная зона с единой концепцией в сердце большой бигтех-конференции.
-              Вместе — заметнее и больше, чем поодиночке.
+              {t.ontico.zone.text}
             </p>
           </div>
           <div className="surface-card rounded-3xl p-7 sm:p-8">
             <Users className="h-5 w-5 text-primary" />
-            <h4 className="mt-3 font-display text-lg font-semibold">Peer-to-peer сборка</h4>
+            <h4 className="mt-3 font-display text-lg font-semibold">{t.ontico.peer.title}</h4>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Сквозная активность и общее представление смоллтехов — проектируем вместе. Не
-              конкурируем, а сотрудничаем: компании-партнёры сами решают, как будет работать аллея.
+              {t.ontico.peer.text}
             </p>
           </div>
           <div className="surface-card rounded-3xl p-7 sm:p-8">
             <BarChart3 className="h-5 w-5 text-primary" />
-            <h4 className="mt-3 font-display text-lg font-semibold">Рабочие метрики</h4>
+            <h4 className="mt-3 font-display text-lg font-semibold">{t.ontico.metrics.title}</h4>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Трекинг контактов, конференционная аналитика, точечные вопросы в опросе участников и
-              отчёт по результатам. Эффективность видно, а не «ну вроде неплохо».
+              {t.ontico.metrics.text}
             </p>
           </div>
         </div>
@@ -249,31 +178,23 @@ const Partnership = () => {
           <div className="grid gap-8 md:grid-cols-[1fr_1.4fr] md:items-start">
             <div>
               <span className="chip-amber">
-                <Mic className="h-3.5 w-3.5" /> программа
+                <Mic className="h-3.5 w-3.5" /> {t.ontico.program.chip}
               </span>
               <h3 className="mt-5 font-display text-2xl font-semibold sm:text-3xl">
-                Программный трек для инженеров смолл- и мидтеха
+                {t.ontico.program.title}
               </h3>
             </div>
             <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
-              <p>
-                Внутри Saint HighLoad++ появится отдельный трек, спроектированный специально под
-                контекст малых и средних компаний: реальные бюджеты, маленькие команды,
-                нестандартные ограничения. Доклады, которые применимы у вас в понедельник, а не в
-                «когда у нас будет отдельная платформенная команда».
-              </p>
-              <p>
-                Программа трека уже опубликована на сайте конференции. Это срежиссированный маршрут
-                по архитектуре, AI-инфраструктуре, безопасности, legacy, FinOps и инженерной экономике —
-                тем вопросам, которые особенно болезненны для малых и средних технологических компаний.
-              </p>
+              {t.ontico.program.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
               <a
                 href="https://highload.ru/spb/2026/streams/smalltech"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
               >
-                Смотреть страницу стрима на HighLoad
+                {t.ontico.program.streamLinkLabel}
                 <ExternalLink className="h-4 w-4" />
               </a>
             </div>
@@ -283,23 +204,22 @@ const Partnership = () => {
             <summary className="flex cursor-pointer list-none flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="font-mono-tech text-xs uppercase tracking-[0.2em] text-primary">
-                  6 докладов · 22–23 июня
+                  {t.ontico.program.listCount}
                 </p>
                 <h4 className="mt-2 font-display text-xl font-semibold">
-                  Что вошло в SmallTech-трек Saint HighLoad++ 2026
+                  {t.ontico.program.listTitle}
                 </h4>
                 <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                  Список свернут, чтобы не раздувать страницу. Раскройте блок, если хотите быстро
-                  пройтись по программе и перейти к первоисточникам.
+                  {t.ontico.program.listHint}
                 </p>
               </div>
               <span className="inline-flex h-11 items-center justify-center rounded-full bg-primary/10 px-5 text-sm font-medium text-primary transition-colors group-open:bg-primary group-open:text-primary-foreground">
-                Показать доклады
+                {t.ontico.program.listButton}
               </span>
             </summary>
 
             <div className="mt-6 grid gap-4 md:grid-cols-2">
-              {smalltechTalks.map((talk) => (
+              {t.ontico.program.talks.map((talk) => (
                 <a
                   key={talk.url}
                   href={talk.url}
@@ -331,36 +251,21 @@ const Partnership = () => {
 
         <div className="mt-10">
           <SectionHeading
-            eyebrow="форматы интеграций"
-            title="Стенды — это база, от которой можно отказаться"
-            description="Стандартные стенды (Старт, Бронза, Серебро) — это базовая конструкция от организатора. Но это не догма: формат интеграции в аллею мы готовы менять под идеи самого сообщества."
+            eyebrow={t.ontico.formats.eyebrow}
+            title={t.ontico.formats.title}
+            description={t.ontico.formats.description}
           />
 
           <div className="mt-10 grid gap-5 md:grid-cols-3">
-            <div className="surface-card rounded-3xl p-7">
-              <p className="font-mono-tech text-xs uppercase tracking-[0.2em] text-primary">пакет</p>
-              <h4 className="mt-2 font-display text-xl font-semibold">Старт</h4>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Место на общем стенде аллеи (до 3 м² на компанию), застройка под ключ, билеты для
-                стендистов, информационный пост и общая email-рассылка по участникам.
-              </p>
-            </div>
-            <div className="surface-card rounded-3xl p-7">
-              <p className="font-mono-tech text-xs uppercase tracking-[0.2em] text-primary">пакет</p>
-              <h4 className="mt-2 font-display text-xl font-semibold">Бронза</h4>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Персональный стенд 3 м², всё из «Старта» плюс расширенные билеты, рекламный ролик
-                и возможность сборки в кластеры по операционным или продуктовым областям.
-              </p>
-            </div>
-            <div className="surface-card rounded-3xl p-7">
-              <p className="font-mono-tech text-xs uppercase tracking-[0.2em] text-primary">пакет</p>
-              <h4 className="mt-2 font-display text-xl font-semibold">Серебро</h4>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Персональный стенд 6 м², максимум билетов, больше показов рекламного ролика, два
-                информационных поста и приоритет в кластеризации внутри аллеи.
-              </p>
-            </div>
+            {t.ontico.formats.packages.map((pack) => (
+              <div key={pack.name} className="surface-card rounded-3xl p-7">
+                <p className="font-mono-tech text-xs uppercase tracking-[0.2em] text-primary">{t.ontico.formats.packageLabel}</p>
+                <h4 className="mt-2 font-display text-xl font-semibold">{pack.name}</h4>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {pack.text}
+                </p>
+              </div>
+            ))}
           </div>
 
           <div className="mt-8 surface-card relative overflow-hidden rounded-3xl border-primary/30 p-8 sm:p-10">
@@ -374,10 +279,7 @@ const Partnership = () => {
               </div>
               <div>
                 <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-                  Описанные пакеты — стандартная конструкция от организатора. Если сообщество
-                  придумает другой формат интеграции в аллею — лекторий, демо-зону, мастерские,
-                  челлендж, что угодно — мы готовы заменить стенды на это. Аллея проектируется
-                  peer-to-peer: вы решаете, как она будет выглядеть.
+                  {t.ontico.formats.note}
                 </p>
               </div>
             </div>
@@ -394,13 +296,13 @@ const Partnership = () => {
           <div className="relative grid gap-8 md:grid-cols-[1.5fr_1fr] md:items-center">
             <div>
               <span className="chip-amber">
-                <Send className="h-3.5 w-3.5" /> по партнёрству
+                <Send className="h-3.5 w-3.5" /> {t.cta.chip}
               </span>
               <h2 className="mt-5 font-display text-3xl font-semibold sm:text-4xl text-balance">
-                По партнёрству на конференциях Онтико — пишите Лизе
+                {t.cta.title}
               </h2>
               <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-                Расскажем подробнее про аллею, форматы участия, поможем выбрать или предложить свой.
+                {t.cta.text}
               </p>
             </div>
             <div className="flex md:justify-end">
@@ -410,7 +312,7 @@ const Partnership = () => {
                 className="inline-flex h-12 items-center gap-2 rounded-full bg-gradient-amber px-6 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:scale-[1.02]"
                 onClick={() => window.ym?.(108988295, 'reachGoal', 'click_contact_lisa')}
               >
-                Написать @LisaTsareva <ArrowRight className="h-4 w-4" />
+                {t.cta.button} <ArrowRight className="h-4 w-4" />
               </a>
             </div>
           </div>
